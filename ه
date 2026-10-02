@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مباريات اليوم - بث مباشر</title>
+<style>
+body{background:#0a0f1e;color:#fff;font-family:sans-serif;text-align:center;margin:0;}
+header{background:#111827;padding:15px;border-bottom:3px solid #22c55e;}
+h1{color:#22c55e;}
+.stream-box{background:#000;margin:20px;border-radius:12px;border:2px solid #22c55e;overflow:hidden;}
+.stream-title{background:#22c55e;color:#000;padding:10px;font-weight:bold;font-size:18px;}
+.match-card{background:#1f2937;margin:10px;border-radius:12px;padding:15px;text-align:right;}
+.match-card button{background:#22c55e;color:#000;border:none;padding:8px 15px;border-radius:8px;cursor:pointer;font-weight:bold;}
+</style>
+</head>
+<body>
+<header><h1>⚽ مباريات اليوم - بث مباشر</h1></header>
+
+<div class="stream-box">
+    <div class="stream-title" id="streamTitle">اختر مباراة للعرض</div>
+    <iframe id="player" src="" width="100%" height="450px" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<h2>جدول المباريات</h2>
+<div id="matches"></div>
+
+<script>
+// هنا ضيف مبارياتك + روابط البث المرخصة اللي تشتريها
+const matches = [
+{
+    league: "الدوري الانجليزي",
+    time: "18:00",
+    team1: "مانشستر سيتي", 
+    team2: "ليفربول",
+    channel: "beIN Sports 1",
+    streamUrl: "حط_الرابط_المرخص_الاول.m3u8" // <-- غير هذا
+},
+{
+    league: "الدوري الاسباني",
+    time: "21:00", 
+    team1: "ريال مدريد",
+    team2: "برشلونة",
+    channel: "beIN Sports 2", 
+    streamUrl: "حط_الرابط_المرخص_الثاني.m3u8" // <-- وغير هذا
+}
+];
+
+const matchesDiv = document.getElementById('matches');
+const player = document.getElementById('player');
+const streamTitle = document.getElementById('streamTitle');
+
+matches.forEach((match, index) => {
+matchesDiv.innerHTML += `
+<div class="match-card">
+    <b>${match.league}</b><br>
+    ${match.team1} ضد ${match.team2}<br>
+    الوقت: ${match.time} | القناة: ${match.channel}<br><br>
+    <button onclick="playStream('${match.streamUrl}', '${match.team1} vs ${match.team2}')">مشاهدة البث</button>
+</div>`;
+});
+
+function playStream(url, title){
+    player.src = url;
+    streamTitle.innerText = "البث المباشر: " + title;
+}
+</script>
+</body>
+</html>
